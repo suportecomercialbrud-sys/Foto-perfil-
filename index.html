@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Fotos com Logo - Empresa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="company-header">
+                <div class="logo-placeholder">
+                    <i class="fas fa-camera"></i>
+                    <span>MINHA EMPRESA</span>
+                </div>
+                <h1>Sistema de Fotos Corporativas</h1>
+                <p class="subtitle">Faça upload da sua foto e adicione a logo oficial</p>
+            </div>
+        </header>
+        
+        <main>
+            <div class="app-container">
+                <!-- Painel de Upload -->
+                <section class="upload-panel">
+                    <div class="panel-header">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h2>1. Selecione sua foto</h2>
+                    </div>
+                    
+                    <div class="upload-zone" id="dropArea">
+                        <div class="upload-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <p class="upload-text">Arraste sua foto aqui ou</p>
+                        <label for="fileInput" class="upload-btn">
+                            <i class="fas fa-folder-open"></i> Procurar no computador
+                        </label>
+                        <input type="file" id="fileInput" accept="image/*">
+                        <p class="upload-hint">Formatos: JPG, PNG, GIF | Máx: 5MB</p>
+                    </div>
+                    
+                    <div class="preview-small">
+                        <img id="imagePreview" src="" alt="Pré-visualização">
+                        <p id="previewText">Sua foto aparecerá aqui</p>
+                    </div>
+                </section>
+                
+                <!-- Painel de Controles -->
+                <section class="controls-panel">
+                    <div class="panel-header">
+                        <i class="fas fa-sliders-h"></i>
+                        <h2>2. Personalize a logo</h2>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="logoSize">
+                            <i class="fas fa-expand-alt"></i> Tamanho da logo
+                            <span id="sizeValue">25%</span>
+                        </label>
+                        <input type="range" id="logoSize" min="10" max="50" value="25">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="logoOpacity">
+                            <i class="fas fa-adjust"></i> Transparência
+                            <span id="opacityValue">80%</span>
+                        </label>
+                        <input type="range" id="logoOpacity" min="10" max="100" value="80">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>
+                            <i class="fas fa-map-marker-alt"></i> Posição
+                        </label>
+                        <div class="position-buttons">
+                            <button class="pos-btn active" data-pos="br"><i class="fas fa-arrow-down-right"></i> Inferior Direito</button>
+                            <button class="pos-btn" data-pos="bl"><i class="fas fa-arrow-down-left"></i> Inferior Esquerdo</button>
+                            <button class="pos-btn" data-pos="tr"><i class="fas fa-arrow-up-right"></i> Superior Direito</button>
+                            <button class="pos-btn" data-pos="tl"><i class="fas fa-arrow-up-left"></i> Superior Esquerdo</button>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>
+                            <i class="fas fa-palette"></i> Cor da logo
+                        </label>
+                        <div class="color-options">
+                            <div class="color-option active" style="background-color: #2c3e50;" data-color="#2c3e50"></div>
+                            <div class="color-option" style="background-color: #e74c3c;" data-color="#e74c3c"></div>
+                            <div class="color-option" style="background-color: #3498db;" data-color="#3498db"></div>
+                            <div class="color-option" style="background-color: #2ecc71;" data-color="#2ecc71"></div>
+                            <div class="color-option" style="background-color: #9b59b6;" data-color="#9b59b6"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="logoText">
+                            <i class="fas fa-font"></i> Texto da logo
+                        </label>
+                        <input type="text" id="logoText" value="MINHA EMPRESA" placeholder="Digite o texto da logo">
+                    </div>
+                </section>
+                
+                <!-- Painel de Visualização -->
+                <section class="preview-panel">
+                    <div class="panel-header">
+                        <i class="fas fa-eye"></i>
+                        <h2>3. Visualize e baixe</h2>
+                    </div>
+                    
+                    <div class="main-preview">
+                        <canvas id="mainCanvas"></canvas>
+                        <div class="canvas-placeholder" id="canvasPlaceholder">
+                            <i class="fas fa-image"></i>
+                            <p>Pré-visualização da foto com logo</p>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-apply" id="applyLogo">
+                            <i class="fas fa-stamp"></i> Aplicar Logo
+                        </button>
+                        <button class="btn btn-download" id="downloadBtn" disabled>
+                            <i class="fas fa-download"></i> Baixar Foto
+                        </button>
+                        <button class="btn btn-reset" id="resetBtn">
+                            <i class="fas fa-redo"></i> Limpar Tudo
+                        </button>
+                    </div>
+                    
+                    <div class="download-info">
+                        <p><i class="fas fa-info-circle"></i> A foto será baixada em PNG com qualidade máxima</p>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Instruções -->
+            <div class="instructions">
+                <h3><i class="fas fa-graduation-cap"></i> Como usar</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Faça upload</h4>
+                        <p>Selecione sua foto clicando em "Procurar no computador" ou arrastando a imagem para a área pontilhada.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Personalize</h4>
+                        <p>Ajuste o tamanho, posição, cor e texto da logo conforme necessário.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Aplique e baixe</h4>
+                        <p>Clique em "Aplicar Logo" para visualizar e depois em "Baixar Foto" para salvar no computador.</p>
+                    </div>
+                </div>
+                
+                <div class="notes">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Importante</h4>
+                    <ul>
+                        <li>Use fotos com boa iluminação e fundo neutro</li>
+                        <li>O sistema funciona totalmente no seu navegador - suas fotos não são enviadas para servidores</li>
+                        <li>Para trocar a logo gráfica, entre em contato com o administrador</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Sistema de Fotos Corporativas &copy; <span id="currentYear">2023</span> - Uso interno</p>
+            <p class="footer-info">Desenvolvido para <strong>MINHA EMPRESA</strong> | Hospedado no GitHub Pages</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
