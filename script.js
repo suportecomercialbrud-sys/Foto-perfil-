@@ -1,6 +1,6 @@
 // Elementos do DOM
 let logoImage = new Image();
-logoImage.src = 'URL_DA_SUA_LOGO_AQUI';
+logoImage.src = 'https://github.com/suportecomercialbrud-sys/Foto-perfil-/commit/9fe78c00bc54cc6bb5878ac838fde86bdc8aa334';
 const fileInput = document.getElementById('fileInput');
 const dropArea = document.getElementById('dropArea');
 const imagePreview = document.getElementById('imagePreview');
