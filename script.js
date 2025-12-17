@@ -1,4 +1,6 @@
 // Elementos do DOM
+let logoImage = new Image();
+logoImage.src = 'URL_DA_SUA_LOGO_AQUI';
 const fileInput = document.getElementById('fileInput');
 const dropArea = document.getElementById('dropArea');
 const imagePreview = document.getElementById('imagePreview');
@@ -204,62 +206,9 @@ function applyLogoToImage() {
 }
 
 function drawLogo() {
-    const logoSize = parseInt(logoSizeSlider.value) / 100;
-    const opacity = parseInt(logoOpacitySlider.value) / 100;
-    
-    // Tamanho da logo baseado na largura da imagem
-    const logoWidth = mainCanvas.width * logoSize;
-    const logoHeight = logoWidth * 0.4; // Proporção 2.5:1
-    
-    // Posição
-    let x, y;
-    const margin = 20;
-    
-    switch(logoPosition) {
-        case 'br': // bottom-right
-            x = mainCanvas.width - logoWidth - margin;
-            y = mainCanvas.height - logoHeight - margin;
-            break;
-        case 'bl': // bottom-left
-            x = margin;
-            y = mainCanvas.height - logoHeight - margin;
-            break;
-        case 'tr': // top-right
-            x = mainCanvas.width - logoWidth - margin;
-            y = margin;
-            break;
-        case 'tl': // top-left
-            x = margin;
-            y = margin;
-            break;
-    }
-    
-    // Desenhar fundo da logo com transparência
-    ctx.save();
-    ctx.globalAlpha = opacity;
-    ctx.fillStyle = logoColor;
-    ctx.fillRect(x, y, logoWidth, logoHeight);
-    ctx.restore();
-    
-    // Adicionar texto da logo
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = `bold ${logoHeight * 0.3}px Arial, sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    
-    // Texto principal
-    ctx.fillText(logoText, x + logoWidth / 2, y + logoHeight / 2);
-    
-    // Texto secundário (ano)
-    ctx.font = `${logoHeight * 0.15}px Arial, sans-serif`;
-    ctx.fillText(`© ${new Date().getFullYear()}`, x + logoWidth / 2, y + logoHeight / 2 + logoHeight * 0.25);
-    
-    // Borda branca sutil
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(x, y, logoWidth, logoHeight);
+   if (logoImage.complete) {
+    ctx.drawImage(logoImage, x, y, logoWidth, logoHeight);
 }
-
 function downloadImage() {
     if (!currentImage) {
         alert('Não há imagem para baixar.');
